@@ -70,7 +70,6 @@ void square_matrix_mult(int *m, int *n, int *p, unsigned width, unsigned block, 
 			tile_square_matrix_mult_kernel<<<dimGrid, dimBlock>>>(d_m, d_n, d_p, width);
 			break;
 		default:
-			std::cout << "  type [0]-[1]!!!";
 			break;
 	}	
 
@@ -114,14 +113,12 @@ int main(int argc, char const *argv[]){
 	
 	time = (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000;
 	printf("[%ix%i] memoria global: %.8lf s\n", width, width, time/1000);
-	// print_matrix(h_p, width, width);
 
 	gettimeofday(&ti, NULL);
 		square_matrix_mult(h_m, h_n, h_r, width, block, 't');
 	gettimeofday(&tf, NULL);
 	time = (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000;
 	printf("[%ix%i] memoria compartida: %.8lf s\n", width, width, time/1000);
-	// print_matrix(h_r, width, width);
 
 	delete h_m;
 	delete h_n;
